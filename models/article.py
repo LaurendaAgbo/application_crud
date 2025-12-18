@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 class Article(Base):
     """Classe de base servant de modèle pour la table articles"""    
     
-    __tablename_ = "articles"
+    __tablename__ = "articles"
     
     id = Column(Integer, primary_key=True, index=True)
     description = Column(String, index=True)
