@@ -18,4 +18,4 @@ Base = declarative_base()
 def get_session():
     """Créer une session pour les opérations sur la BD."""
     with SessionLocal() as session:
-        yield session
+        yield session        

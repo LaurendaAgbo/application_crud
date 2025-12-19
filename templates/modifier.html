@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ajout d'un article</title>
+    <title>Modification d'un article</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -20,23 +20,31 @@
     <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <h1>Ajout d'un article</h1>
+    <h1>Modification d'un article</h1>
 
-    {% if erreur %}
-    <div class="alert alert-danger">
-        {{ erreur }}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        {{ message }}
     </div>
+    {% endfor %}
     {% endif %}
+    {% endwith %}
     <form method="post">
-        <input class="form-control mb-2" name="description" placeholder="Description" required>
-        <input class="form-control mb-2" name="prix" type="number" step="0.01" placeholder="Prix">
-        <select name="categorie_id" class="form-control mb-2" id="categorie-select">
+        <input class="form-control mb-2" name="description" value="{{ article.description }}" placeholder="Description"
+            required>
+        <input class="form-control mb-2" name="prix" type="number" step="0.01" value="{{ article.prix }}"
+            placeholder="Prix" required>
+        <select name="categorie_id" class="form-control mb-2" id="categorie-select" required>
             <option value="">-- Choisir une catégorie --</option>
             {% for categorie in categories %}
-            <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
+                <option value="{{ categorie.id }}" {% if categorie.id == article.categorie_id %}selected{% endif %}>
+                    {{ categorie.nom }}
+                </option>
             {% endfor %}
         </select>
-        <button class="btn btn-primary">Ajouter</button>
+        <button class="btn btn-primary">Modifier</button>
     </form>
     <script src="" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

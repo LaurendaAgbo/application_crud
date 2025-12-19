@@ -8,7 +8,7 @@ class Categorie(Base):
     __tablename__ = "categories"
     
     id = Column(Integer, primary_key=True, index=True)
-    nom = Column(String, index=True, nullable=False)
+    nom = Column(String, unique=True, index=True, nullable=False)
     
     articles = relationship("Article", back_populates="categorie")
     
